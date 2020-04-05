@@ -27,7 +27,7 @@ Clonez le repo sur votre machine. Vous pouvez répondre aux questions en modifia
 [Travail à effectuer](#exercises)
 
 
-## Echéance 
+## Echéance
 
 Ce travail devra être rendu le dimanche après la fin de la 2ème séance de laboratoire, soit au plus tard, **le 6 avril 2020, à 23h59.**
 
@@ -44,9 +44,9 @@ Un exemple de règle pourrait être, en language commun : "donner une alerte pou
 
 Snort est un IDS très puissant. Il est gratuit pour l'utilisation personnelle et en entreprise, où il est très utilisé aussi pour la simple raison qu'il est l'un des plus efficaces systèmes IDS.
 
-Snort peut être exécuté comme un logiciel indépendant sur une machine ou comme un service qui tourne après chaque démarrage. Si vous voulez qu'il protège votre réseau, fonctionnant comme un IPS, il faudra l'installer "in-line" avec votre connexion Internet. 
+Snort peut être exécuté comme un logiciel indépendant sur une machine ou comme un service qui tourne après chaque démarrage. Si vous voulez qu'il protège votre réseau, fonctionnant comme un IPS, il faudra l'installer "in-line" avec votre connexion Internet.
 
-Par exemple, pour une petite entreprise avec un accès Internet avec un modem simple et un switch interconnectant une dizaine d'ordinateurs de bureau, il faudra utiliser une nouvelle machine executant Snort et placée entre le modem et le switch. 
+Par exemple, pour une petite entreprise avec un accès Internet avec un modem simple et un switch interconnectant une dizaine d'ordinateurs de bureau, il faudra utiliser une nouvelle machine executant Snort et placée entre le modem et le switch.
 
 
 ## Matériel
@@ -104,11 +104,11 @@ Pour arrêter Snort, il suffit d'utiliser `CTRL-C` (**attention** : il peut arri
 
 ## Utilisation comme un IDS
 
-Pour enregistrer seulement les alertes et pas tout le trafic, on execute Snort en mode IDS. Il faudra donc spécifier un fichier contenant des règles. 
+Pour enregistrer seulement les alertes et pas tout le trafic, on execute Snort en mode IDS. Il faudra donc spécifier un fichier contenant des règles.
 
 Il faut noter que `/etc/snort/snort.config` contient déjà des références aux fichiers de règles disponibles avec l'installation par défaut. Si on veut tester Snort avec des règles simples, on peut créer un fichier de config personnalisé (par exemple `mysnort.conf`) et importer un seul fichier de règles utilisant la directive "include".
 
-Les fichiers de règles sont normalement stockes dans le repertoire `/etc/snort/rules/`, mais en fait un fichier de config et les fichiers de règles peuvent se trouver dans n'importe quel repertoire. 
+Les fichiers de règles sont normalement stockes dans le repertoire `/etc/snort/rules/`, mais en fait un fichier de config et les fichiers de règles peuvent se trouver dans n'importe quel repertoire.
 
 Par exemple, créez un fichier de config `mysnort.conf` dans le repertoire `/etc/snort` avec le contenu suivant :
 
@@ -126,7 +126,7 @@ On peut maintenant executer la commande :
 snort -c /etc/snort/mysnort.conf
 ```
 
-Vous pouvez maintenant faire quelques pings depuis votre hôte et regarder les résultas dans le fichier d'alertes contenu dans le repertoire `/var/log/snort/`. 
+Vous pouvez maintenant faire quelques pings depuis votre hôte et regarder les résultas dans le fichier d'alertes contenu dans le repertoire `/var/log/snort/`.
 
 
 ## Ecriture de règles
@@ -152,7 +152,7 @@ Cette règle décrit une alerte générée quand Snort trouve un paquet avec tou
 * Emis depuis n'importe quelle adresse et depuis n'importe quel port
 * A destination du réseau identifié par l'adresse 192.168.1.0/24 sur le port 111
 
-Le text jusqu'au premier parenthèse est l'entête de la règle. 
+Le text jusqu'au premier parenthèse est l'entête de la règle.
 
 ```
 alert tcp any any -> 192.168.1.0/24 111
@@ -171,7 +171,7 @@ alert tcp any any -> any 21 (content:"site exec"; content:"%"; msg:"site
 exec buffer overflow attempt";)
 ```
 
-La clé "content" apparait deux fois parce que les deux strings qui doivent être détectés n'apparaissent pas concaténés dans le paquet mais à des endroits différents. Pour que la règle soit déclenchée, il faut que le paquet contienne **les deux strings** "site exec" et "%". 
+La clé "content" apparait deux fois parce que les deux strings qui doivent être détectés n'apparaissent pas concaténés dans le paquet mais à des endroits différents. Pour que la règle soit déclenchée, il faut que le paquet contienne **les deux strings** "site exec" et "%".
 
 Les éléments dans les options d'une règle sont traitées comme un AND logique. La liste complète de règles sont traitées comme une succession de OR.
 
@@ -201,7 +201,7 @@ Le champ suivant c'est le protocole. Il y a trois protocoles IP qui peuvent êtr
 
 ### Adresses IP :
 
-La section suivante traite les adresses IP et les numéros de port. Le mot `any` peut être utilisé pour définir "n'import quelle adresse". On peut utiliser l'adresse d'une seule machine ou un block avec la notation CIDR. 
+La section suivante traite les adresses IP et les numéros de port. Le mot `any` peut être utilisé pour définir "n'import quelle adresse". On peut utiliser l'adresse d'une seule machine ou un block avec la notation CIDR.
 
 Un opérateur de négation peut être appliqué aux adresses IP. Cet opérateur indique à Snort d'identifier toutes les adresses IP sauf celle indiquée. L'opérateur de négation est le `!`.
 
@@ -243,7 +243,7 @@ Journaliser le traffic TCP venant d'un port privilégié (bien connu) plus grand
 
 ### Opérateur de direction
 
-L'opérateur de direction `->`indique l'orientation ou la "direction" du trafique. 
+L'opérateur de direction `->`indique l'orientation ou la "direction" du trafique.
 
 Il y a aussi un opérateur bidirectionnel, indiqué avec le symbole `<>`, utile pour analyser les deux côtés de la conversation. Par exemple un échange telnet :
 
@@ -286,7 +286,7 @@ Vous pouvez aussi utiliser des captures Wireshark ou des fichiers snort.log.xxxx
 
 ---
 
-**Reponse :**  
+**Reponse :** C'est une fonctionnalité permettant l'ajout de plugins à Snort. Ces plugins sont exécuté après le décodage des paquets et avant le system de détection de Snort.
 
 ---
 
@@ -294,7 +294,7 @@ Vous pouvez aussi utiliser des captures Wireshark ou des fichiers snort.log.xxxx
 
 ---
 
-**Reponse :**  
+**Reponse :** Cela indique que nous avons configuré aucun plugin dans notre configuration "home-made".
 
 ---
 
@@ -310,7 +310,7 @@ alert tcp any any -> any any (msg:"Mon nom!"; content:"Rubinstein"; sid:4000015;
 
 ---
 
-**Reponse :**  
+**Reponse :** Cette règle alerte lorsqu'un paquet `TCP` en `provenance et destination de n'importe quelle adresse et port` qui contient le mot clef `Rubinstein`. Le message de l'alerte sera `Mon nom!`. La règle est attribuée le sid `4000015` et rev `1` pour indiquer une règle "home-made".
 
 ---
 
@@ -325,6 +325,105 @@ sudo snort -c myrules.rules -i eth0
 ---
 
 **Reponse :**  
+```
+root@kali:/home/kali# snort -c myrules.rules -i eth0
+Running in IDS mode
+
+        --== Initializing Snort ==--
+Initializing Output Plugins!
+Initializing Preprocessors!
+Initializing Plug-ins!
+Parsing Rules file "myrules.rules"
+Tagged Packet Limit: 256
+Log directory = /var/log/snort
+
++++++++++++++++++++++++++++++++++++++++++++++++++++
+Initializing rule chains...
+1 Snort rules read
+    1 detection rules
+    0 decoder rules
+    0 preprocessor rules
+1 Option Chains linked into 1 Chain Headers
+0 Dynamic rules
++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++-------------------[Rule Port Counts]---------------------------------------
+|             tcp     udp    icmp      ip
+|     src       0       0       0       0
+|     dst       0       0       0       0
+|     any       1       0       0       0
+|      nc       0       0       0       0
+|     s+d       0       0       0       0
++----------------------------------------------------------------------------
+
++-----------------------[detection-filter-config]------------------------------
+| memory-cap : 1048576 bytes
++-----------------------[detection-filter-rules]-------------------------------
+| none
+-------------------------------------------------------------------------------
+
++-----------------------[rate-filter-config]-----------------------------------
+| memory-cap : 1048576 bytes
++-----------------------[rate-filter-rules]------------------------------------
+| none
+-------------------------------------------------------------------------------
+
++-----------------------[event-filter-config]----------------------------------
+| memory-cap : 1048576 bytes
++-----------------------[event-filter-global]----------------------------------
++-----------------------[event-filter-local]-----------------------------------
+| none
++-----------------------[suppression]------------------------------------------
+| none
+-------------------------------------------------------------------------------
+Rule application order: activation->dynamic->pass->drop->sdrop->reject->alert->log
+Verifying Preprocessor Configurations!
+
+[ Port Based Pattern Matching Memory ]
++-[AC-BNFA Search Info Summary]------------------------------
+| Instances        : 1
+| Patterns         : 1
+| Pattern Chars    : 7
+| Num States       : 7
+| Num Match States : 1
+| Memory           :   1.60Kbytes
+|   Patterns       :   0.04K
+|   Match Lists    :   0.09K
+|   Transitions    :   1.07K
++-------------------------------------------------
+pcap DAQ configured to passive.
+Acquiring network traffic from "eth0".
+Reload thread starting...
+Reload thread started, thread 0x7fdec261e700 (1245)
+Decoding Ethernet
+
+        --== Initialization Complete ==--
+
+   ,,_     -*> Snort! <*-
+  o"  )~   Version 2.9.7.0 GRE (Build 149)
+   ''''    By Martin Roesch & The Snort Team: http://www.snort.org/contact#team
+           Copyright (C) 2014 Cisco and/or its affiliates. All rights reserved.
+           Copyright (C) 1998-2013 Sourcefire, Inc., et al.
+           Using libpcap version 1.9.1 (with TPACKET_V3)
+           Using PCRE version: 8.39 2016-06-14
+           Using ZLIB version: 1.2.11
+
+Commencing packet processing (pid=1240)
+```
+Snort à chargé le fichier de configuration `myrules.rules` contenant la règle de la question précédente.
+```
+...
+Parsing Rules file "myrules.rules"
+...
+1 Snort rules read
+    1 detection rules
+...
+[ Port Based Pattern Matching Memory ]
++-[AC-BNFA Search Info Summary]------------------------------
+| Instances        : 1
+| Patterns         : 1
+...
+```
 
 ---
 
@@ -334,7 +433,20 @@ Aller à un site web contenant dans son text votre nom ou votre mot clé que vou
 
 ---
 
-**Reponse :**  
+**Reponse :**
+```
+ommencing packet processing (pid=1169)
+WARNING: No preprocessors configured for policy 0.
+WARNING: No preprocessors configured for policy 0.
+WARNING: No preprocessors configured for policy 0.
+WARNING: No preprocessors configured for policy 0.
+WARNING: No preprocessors configured for policy 0.
+WARNING: No preprocessors configured for policy 0.
+WARNING: No preprocessors configured for policy 0.
+WARNING: No preprocessors configured for policy 0.
+WARNING: No preprocessors configured for policy 0.
+WARNING: No preprocessors configured for policy 0.
+```
 
 ---
 
@@ -344,8 +456,106 @@ Arrêter Snort avec `CTRL-C`.
 
 ---
 
-**Reponse :**  
+**Reponse :** Snort résume son activité en plusieurs sections.
 
+Temps d'activité avec le nombre de paquets traités
+```
+Run time for packet processing was 8.53747 seconds
+Snort processed 11 packets.
+Snort ran for 0 days 0 hours 0 minutes 8 seconds
+   Pkts/sec:            1
+```
+Utilisation de la mémoire :
+```
+Memory usage summary:
+  Total non-mmapped bytes (arena):       2289664
+  Bytes in mapped regions (hblkhd):      17252352
+  Total allocated space (uordblks):      2066416
+  Total free space (fordblks):           223248
+  Topmost releasable block (keepcost):   65840
+```
+Statistique sur comment les paquets ont été traités :
+```
+Packet I/O Totals:
+   Received:           12
+   Analyzed:           11 ( 91.667%)
+    Dropped:            0 (  0.000%)
+   Filtered:            0 (  0.000%)
+Outstanding:            1 (  8.333%)
+   Injected:            0
+```
+Statistique sur les protocoles utilisés :
+```
+Breakdown by protocol (includes rebuilt packets):
+        Eth:           11 (100.000%)
+       VLAN:            0 (  0.000%)
+        IP4:            2 ( 18.182%)
+       Frag:            0 (  0.000%)
+       ICMP:            0 (  0.000%)
+        UDP:            2 ( 18.182%)
+        TCP:            0 (  0.000%)
+        IP6:            0 (  0.000%)
+    IP6 Ext:            0 (  0.000%)
+   IP6 Opts:            0 (  0.000%)
+      Frag6:            0 (  0.000%)
+      ICMP6:            0 (  0.000%)
+       UDP6:            0 (  0.000%)
+       TCP6:            0 (  0.000%)
+     Teredo:            0 (  0.000%)
+    ICMP-IP:            0 (  0.000%)
+    IP4/IP4:            0 (  0.000%)
+    IP4/IP6:            0 (  0.000%)
+    IP6/IP4:            0 (  0.000%)
+    IP6/IP6:            0 (  0.000%)
+        GRE:            0 (  0.000%)
+    GRE Eth:            0 (  0.000%)
+   GRE VLAN:            0 (  0.000%)
+    GRE IP4:            0 (  0.000%)
+    GRE IP6:            0 (  0.000%)
+GRE IP6 Ext:            0 (  0.000%)
+   GRE PPTP:            0 (  0.000%)
+    GRE ARP:            0 (  0.000%)
+    GRE IPX:            0 (  0.000%)
+   GRE Loop:            0 (  0.000%)
+       MPLS:            0 (  0.000%)
+        ARP:            1 (  9.091%)
+        IPX:            0 (  0.000%)
+   Eth Loop:            0 (  0.000%)
+   Eth Disc:            0 (  0.000%)
+   IP4 Disc:            0 (  0.000%)
+   IP6 Disc:            0 (  0.000%)
+   TCP Disc:            0 (  0.000%)
+   UDP Disc:            0 (  0.000%)
+  ICMP Disc:            0 (  0.000%)
+All Discard:            0 (  0.000%)
+      Other:            8 ( 72.727%)
+Bad Chk Sum:            0 (  0.000%)
+    Bad TTL:            0 (  0.000%)
+     S5 G 1:            0 (  0.000%)
+     S5 G 2:            0 (  0.000%)
+      Total:           11
+```
+Statistiques des actions appliquées par Snort (nombre d'alerte, nombre de paquets acceptés, etc) :
+```
+Action Stats:
+     Alerts:            0 (  0.000%)
+     Logged:            0 (  0.000%)
+     Passed:            0 (  0.000%)
+Limits:
+      Match:            0
+      Queue:            0
+        Log:            0
+      Event:            0
+      Alert:            0
+Verdicts:
+      Allow:           11 ( 91.667%)
+      Block:            0 (  0.000%)
+    Replace:            0 (  0.000%)
+  Whitelist:            0 (  0.000%)
+  Blacklist:            0 (  0.000%)
+     Ignore:            0 (  0.000%)
+      Retry:            0 (  0.000%)
+```
 ---
 
 
@@ -356,6 +566,17 @@ Aller au répertoire /var/log/snort. Ouvrir le fichier `alert`. Vérifier qu'il 
 ---
 
 **Reponse :**  
+```
+[**] [1:4000001:3] ICMP Packet [**]
+[Priority: 0]
+04/05-09:06:08.130803 fe80::bac3:85ff:fe0a:b568 -> ff02::2
+IPV6-ICMP TTL:255 TOS:0x0 ID:0 IpLen:40 DgmLen:56
+```
+
+Ligne 1 : Le sid et rev du paquet avec le message de l'alerte.  
+Ligne 2 : La priorité de l'alerte.  
+Ligne 3 : L'heure et la date de l'alerte avec la source et destination du paquet ayant provoqué celle-ci.  
+Ligne 4 : Information concernant le paquet (protocole, etc).  
 
 ---
 
@@ -370,7 +591,13 @@ Ecrire une règle qui journalise (sans alerter) un message à chaque fois que Wi
 
 ---
 
-**Reponse :**  
+**Reponse :**
+
+Règle : `log tcp 192.168.0.67 any -> any any (msg:"Visite Wikipedia";reference:url, https://www.wikipedia.org/, sid:400020, rev:1;)`
+
+Où : `/var/log/snort/snort.log.xxxxxxxxxx`
+
+Qu'est-ce : Le paquet reférençant l'url Wikipedia.
 
 ---
 
@@ -384,7 +611,7 @@ Ecrire une règle qui alerte à chaque fois que votre système reçoit un ping d
 
 ---
 
-**Reponse :**  
+**Reponse :** `alert icmp any any -> 192.168.0.67 any (msg:"Ping entrant!"; sid:4000021; rev:1; itype:8;)`
 
 ---
 
@@ -393,7 +620,7 @@ Ecrire une règle qui alerte à chaque fois que votre système reçoit un ping d
 
 ---
 
-**Reponse :**  
+**Reponse :** Le paramètre `itype:8` permet de détecter uniquement les paquets ECHO et non ECHO REPLY.
 
 ---
 
@@ -402,7 +629,7 @@ Ecrire une règle qui alerte à chaque fois que votre système reçoit un ping d
 
 ---
 
-**Reponse :**  
+**Reponse :** `/var/log/snort/snort.log.xxxxxxxxxx`
 
 ---
 
@@ -412,6 +639,8 @@ Ecrire une règle qui alerte à chaque fois que votre système reçoit un ping d
 ---
 
 **Reponse :**  
+
+![journal](./images/q12.jpg)
 
 ---
 
@@ -425,7 +654,7 @@ Modifier votre règle pour que les pings soient détectés dans les deux sens.
 
 ---
 
-**Reponse :**  
+**Reponse :** `alert icmp any any <> 192.168.0.67 any (msg:"Ping bidirectionnel!"; sid:4000021; rev:1; itype:8;)`
 
 ---
 
@@ -440,16 +669,24 @@ Essayer d'écrire une règle qui Alerte qu'une tentative de session SSH a été 
 
 ---
 
-**Reponse :**  
+**Reponse :** `alert tcp any any -> 192.168.0.229 22 (msg:"Tentative login SSH"; sid:4000022; rev:1;)`
 
 ---
 
 
-**Question 15: Montrer le message d'alerte enregistré dans le fichier d'alertes.** 
+**Question 15: Montrer le message d'alerte enregistré dans le fichier d'alertes.**
 
 ---
 
 **Reponse :**  
+```
+[**] [1:4000021:1] Tentative login SSH [**]
+[Priority: 0]
+04/05-16:56:44.354870 192.168.0.67:41226 -> 192.168.0.229:22
+TCP TTL:64 TOS:0x10 ID:0 IpLen:20 DgmLen:52 DF
+***A**** Seq: 0xAC10F2AC  Ack: 0x6F77A445 Win: 0x489  TcpLen: 32
+TCP Options (3) => NOP NOP TS: 201427951 4756184725
+```
 
 ---
 
@@ -463,7 +700,7 @@ Lancer Wireshark et faire une capture du trafic sur l'interface connectée au br
 
 ---
 
-**Reponse :**  
+**Reponse :** `-r <path/to/file>`
 
 ---
 
@@ -473,7 +710,7 @@ Utiliser l'option correcte de Snort pour analyser le fichier de capture Wireshar
 
 ---
 
-**Reponse :**  
+**Reponse :**  Snort se comporte de la même façon quand analyse en temps réel.
 
 ---
 
@@ -481,7 +718,7 @@ Utiliser l'option correcte de Snort pour analyser le fichier de capture Wireshar
 
 ---
 
-**Reponse :**  
+**Reponse :** Oui elles sont enregistrées dabs ce fichier.
 
 ---
 
@@ -495,7 +732,7 @@ Faire des recherches à propos des outils `fragroute` et `fragtest`.
 
 ---
 
-**Reponse :**  
+**Reponse :** Ce sont des outiles permettant de réaliser des _Penetration Test_. Ils sont utilisé pour tester et contourner un (N)IDS.
 
 ---
 
@@ -504,7 +741,7 @@ Faire des recherches à propos des outils `fragroute` et `fragtest`.
 
 ---
 
-**Reponse :**  
+**Reponse :** Ces outils fragmente les paquets envoyés au (N)IDS.
 
 ---
 
@@ -513,7 +750,7 @@ Faire des recherches à propos des outils `fragroute` et `fragtest`.
 
 ---
 
-**Reponse :**  
+**Reponse :** C'est un plugin (comme vu à la question n°1) permettant la détection de paquet défragmenté par le genre d'outils vu précédement (question n°20-21).
 
 ---
 
