@@ -710,7 +710,7 @@ Utiliser l'option correcte de Snort pour analyser le fichier de capture Wireshar
 
 ---
 
-**Reponse :**  Snort se comporte de la même façon quand analyse en temps réel.
+**Reponse :**  Snort se comporte de la même façon qu'en analyse en temps réel.
 
 ---
 
@@ -718,7 +718,7 @@ Utiliser l'option correcte de Snort pour analyser le fichier de capture Wireshar
 
 ---
 
-**Reponse :** Oui elles sont enregistrées dabs ce fichier.
+**Reponse :** Oui elles sont enregistrées dans ce fichier.
 
 ---
 
@@ -762,7 +762,7 @@ Reprendre l'exercice de la partie [Trouver votre nom](#trouver-votre-nom-). Essa
 
 ---
 
-**Reponse :**  
+**Reponse :** Nous avons utilisé fragroute avec la règle `ip_frag 8` dans le fichier de config de fragroute. Ceci nous a permis d'offusquer la détection de Snort.
 
 ---
 
@@ -774,8 +774,13 @@ Modifier le fichier `myrules.rules` pour que snort utiliser le `Frag3 Preprocess
 
 ---
 
-**Reponse :**  
+**Reponse :** Snort a pu détecter les paquets défragmentés avec l'ajout de `Frag3` dans le fichier de configuration.
 
+Lignes ajoutées :
+```
+preprocessor frag3_global
+preprocessor frag3_engine
+```
 ---
 
 
@@ -783,7 +788,7 @@ Modifier le fichier `myrules.rules` pour que snort utiliser le `Frag3 Preprocess
 
 ---
 
-**Reponse :**  
+**Reponse :** Active l'analyse partielle des communications SSL/TLS (en-tête des paquets par exemple).
 
 ---
 
@@ -792,7 +797,7 @@ Modifier le fichier `myrules.rules` pour que snort utiliser le `Frag3 Preprocess
 
 ---
 
-**Reponse :**  
+**Reponse :** Active la détection de données sensibles dans les communications (numéro de téléphone, compte bancaire, etc).
 
 ---
 
@@ -803,7 +808,7 @@ Modifier le fichier `myrules.rules` pour que snort utiliser le `Frag3 Preprocess
 
 ---
 
-**Reponse :**  
+**Reponse :** Nous avons apprécié ce laboratoire malgré quelques problèmes au cours de celui-ci (installation de l'environnement et difficultés à réaliser certaines manipulations). Nous trouvons que Snort est un logiciel très puissant et simple d'utilisation aux premiers abords mais rapidement complexe en vue de toutes les possibilités offertes par cette application. 
 
 ---
 
