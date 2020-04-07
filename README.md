@@ -10,6 +10,8 @@ Clonez le repo sur votre machine. Vous pouvez répondre aux questions en modifia
 
 ## Table de matières
 
+[Participants](#participants)
+
 [Introduction](#introduction)
 
 [Echéance](#echéance)
@@ -25,6 +27,9 @@ Clonez le repo sur votre machine. Vous pouvez répondre aux questions en modifia
 [Ecriture de règles](#ecriture-de-règles)
 
 [Travail à effectuer](#exercises)
+
+## Participants
+Arthur Bécaud et Bruno Egremy
 
 
 ## Echéance
